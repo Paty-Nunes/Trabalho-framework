@@ -1,14 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom"; // Importa Link
-import {
-  Box,
-  Button,
-  Grid,
-  Typography,
-  TextField,
-  Card,
-  CardMedia,
-} from "@mui/material"; // Importa componentes do MUI
+import { Box, Button, Grid, Typography, Card, CardMedia } from "@mui/material"; // Componentes do Material-UI
 
 const ACCESS_KEY = "XLsiO8w3dDo_v24JrMipEqiHlb6JEH7_Z456DHXNjew";
 
@@ -64,61 +56,53 @@ const PhotoGallery = () => {
   };
 
   return (
-    <Box sx={{ padding: "20px" }} className="PhotoGallery">
-      <Typography variant="h4" gutterBottom>
-        Galeria de Fotos
-      </Typography>
-      <form onSubmit={handleSearch} style={{ display: "flex", gap: "10px", marginBottom: "20px" }}>
-        <TextField
-          variant="outlined"
+    <div className="PhotoGallery">
+      <h1>Galeria de Fotos</h1>
+      <form onSubmit={handleSearch}>
+        <input
+          type="text"
           placeholder="Buscar fotos"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
-          sx={{ flex: 1 }} // Faz o TextField ocupar todo o espaço disponível
         />
-        <Button variant="contained" type="submit" className="button-search">
+        <button type="submit" className="button-search">
           Buscar
-        </Button>
+        </button>
         {hasSearched && photos.length > 0 && (
-          <Button variant="outlined" onClick={handleReset}>
+          <button type="button" onClick={handleReset}>
             Voltar
-          </Button>
+          </button>
         )}
       </form>
       <Grid container spacing={2}>
         {photos.length > 0 ? (
           photos.map((photo) => (
             <Grid item xs={12} sm={6} md={4} key={photo.id}>
-              <Card onClick={() => openModal(photo)}>
-                <CardMedia
-                  component="img"
-                  height="200"
-                  image={photo.urls.small}
-                  alt={photo.description}
-                />
-                <Box sx={{ padding: "10px" }}>
-                  <Typography variant="body1">
-                    {photo.description || "Sem descrição"}
-                  </Typography>
-                  <Typography variant="body2">
-                    Foto de {photo.user.name} no Unsplash
-                  </Typography>
+              <Card sx={{ backgroundColor: "rgba(255, 255, 255, 0.7)" }}> {/* Adiciona opacidade */}
+                <div
+                  className="photo"
+                  onClick={() => openModal(photo)}
+                >
+                  <CardMedia
+                    component="img"
+                    height="200"
+                    image={photo.urls.small}
+                    alt={photo.description}
+                  />
+                  <Typography>{photo.description || "Sem descrição"}</Typography>
+                  <Typography>Foto de {photo.user.name} no Unsplash</Typography>
                   <Link to={`/photos/${photo.id}`}>
-                    <Button variant="outlined" fullWidth>
-                      Ver Detalhes
-                    </Button>
+                    <Button variant="contained">Ver Detalhes</Button>
                   </Link>
-                </Box>
+                </div>
               </Card>
             </Grid>
           ))
         ) : (
-          <Grid item xs={12}>
-            <Typography>Nenhuma foto encontrada.</Typography>
-            <Button onClick={handleReset} variant="outlined">
-              Voltar
-            </Button>
-          </Grid>
+          <div>
+            <p>Nenhuma foto encontrada.</p>
+            <button onClick={handleReset}>Voltar</button>
+          </div>
         )}
       </Grid>
       {selectedPhoto && (
@@ -133,7 +117,7 @@ const PhotoGallery = () => {
           </div>
         </div>
       )}
-    </Box>
+    </div>
   );
 };
 

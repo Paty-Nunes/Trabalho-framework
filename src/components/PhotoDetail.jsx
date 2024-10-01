@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
-import { Box, Button, Grid, Typography, Card, CardMedia } from "@mui/material";  // Componentes do Material-UI
+import { Box, Button, Grid, Typography, Card, CardMedia } from "@mui/material"; // Componentes do Material-UI
 
 const ACCESS_KEY = "XLsiO8w3dDo_v24JrMipEqiHlb6JEH7_Z456DHXNjew";
 
@@ -72,7 +72,7 @@ const PhotoDetail = () => {
         {relatedPhotos.length > 0 ? (
           relatedPhotos.map((relatedPhoto) => (
             <Grid item xs={12} sm={6} md={4} key={relatedPhoto.id}>
-              <Card>
+              <Card sx={{ backgroundColor: "rgba(255, 255, 255, 0.7)" }}> {/* Adiciona opacidade */}
                 <Link to={`/photos/${relatedPhoto.id}`}>
                   <CardMedia
                     component="img"
@@ -93,4 +93,3 @@ const PhotoDetail = () => {
 };
 
 export default PhotoDetail;
-
